@@ -1,0 +1,29 @@
+{
+  "name": "json-patch-rules",
+  "version": "0.1.0",
+  "description": "Declarative rules for applying JSON Patch to an object",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/claytongulick/json-patch-rules.git"
+  },
+  "keywords": [
+    "json",
+    "patch",
+    "jsonpatch",
+    "rules",
+    "RFC6902"
+  ],
+  "author": "Clayton C Gulick",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/claytongulick/json-patch-rules/issues"
+  },
+  "homepage": "https://github.com/claytongulick/json-patch-rules#readme",
+  "dependencies": {
+    "json-predicate": "^0.9.5"
+  }
+}

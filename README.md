@@ -100,7 +100,25 @@ Using the "value" property with a regex allows for simple tests, which are appro
 
 "test" supports nesting and complex rules, as [as explained in the RFC](https://tools.ietf.org/id/draft-snell-json-test-01.html#rfc.section.2.3.4).
 
+For tests can be applied widely by omitting "path" and/or "op" properties:
 
+```javascript
+//this will be applied to all 'delete' patch operations
+{
+    "op": ["delete"],
+    "test": [
+        {"op":"contains", "path":"/path", "value":"inactive"},
+    ]
+}
+
+//this will be applied to all operations on the 'friends' path
+{
+    "path": "/friends",
+    "test": [
+        ...
+    ]
+}
+```
 There are two approaches to rule specifications, fields can be whitelisted or blacklisted. This determines what action should be taken when a patch operation is applied to a path where there is no rule specified.
 
 Since either approach is valid depending on the use scenario, the rules specification itself doesn't indicate which approach should be used. Instead, this is left as an implementation detail that should be indicated via configuration or options by the JSON Patch Rules tool.
