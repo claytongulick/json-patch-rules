@@ -1,6 +1,33 @@
 # JSON Patch Rules
 Tools and specification for defining rules about how a json patch should be applied to an object.
 
+## Usage
+``` npm install json-patch-rules ```
+
+For some json patch object, like:
+```javascript
+const json_patch = [
+    { path: "/user/email", op: "replace", value: "zaphod@beeblebrox.com"},
+    { path: "/user/friends/0/bestie", op: "replace", value: true},
+    { path: "/user/role", op: "add", value: "god"}
+];
+```
+
+Rules can be applied to verify the validity of the JSON Patch, like:
+```javascript
+const JSONPatchRules = require('json-patch-rules');
+
+let rules = [
+    { path: "/user/email", op: "replace", value: "[^@]+@[^\.]+\..+"},
+    { path: "^/user/friends/.+/bestie", op: "replace" }
+];
+
+let patch_rules = new JSONPatchRules(rules);
+let valid = patch_rules.check(json_patch); //this is false, can't change user.role in a patch
+
+```
+
+
 ## Motivation
 [RFC 6902](http://tools.ietf.org/html/rfc6902) defines the [JSON Patch](http://jsonpatch.com) specification which allows for an object transformation by applying a set of operations. While not limited to REST APIs, a primary use case of JSON Patch is with a PATCH verb applied to an entity located at a RESTful URI.
 
