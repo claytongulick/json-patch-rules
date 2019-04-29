@@ -25,5 +25,8 @@
   "homepage": "https://github.com/claytongulick/json-patch-rules#readme",
   "dependencies": {
     "json-predicate": "^0.9.5"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4"
   }
 }

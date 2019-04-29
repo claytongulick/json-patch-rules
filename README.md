@@ -65,7 +65,7 @@ a simple test can be applied with RegEx:
 }
 ```
 
-if specified, the "value" property will always be interpreted as a regular expression.
+if the "value" property exists and is a string, it will always be interpreted as a regular expression. Otherwise, a strict equality comparison will be used.
 
 "from" and "path" will also be intpreted as a regular expression if the first two characters are "^/". Since all valid JSON Pointer paths begin with "/", "^/" indicates that a RegEx should be applied to match the path starting with "/".
 

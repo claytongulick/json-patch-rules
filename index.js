@@ -1,4 +1,5 @@
-import {test} from 'json-predicate';
+const jsonPredicate = require('json-predicate');
+const test = jsonPredicate.test;
 
 class JSONPatchRules {
     constructor(rules, options) {
@@ -17,13 +18,30 @@ class JSONPatchRules {
 
     checkOperation(item) {
         let rules = this.findRules(item);
-        if(!rules || (rules.length == 0))
-        {
-            //we didn't find a rule. depending on whether we're in whitelist or blacklist mode, this might be permissable
-            if(this.options.mode == 'whitelist')
+        if(this.options.mode == "blacklist") {
+            if(!rules)
+                return true;
+
+            if(rules.length == 0)
+                return true;
+
+            if(rules.length > 0)
                 return false;
-            return true;
+
         }
+
+        if(this.options.mode == "whitelist") {
+            if(!rules)
+                return false;
+
+            if(rules.length == 0)
+                return false;
+
+            if(rules.length > 0)
+                return true;
+
+        }
+
     }
 
     findRules(item) {
@@ -62,19 +80,29 @@ class JSONPatchRules {
             }
         }
 
-        if(rule.test) {
-            //if this is an array, it's a json predicate set
-            if(Array.isArray(rule.test)) {
-                let test_match = test(item, rules.test);
-                if(!test_match)
+        if(rule.value) {
+            if (typeof rule.value == 'string') {
+                let regex = new RegExp(rule.value);
+                let test_match = regex.test(item.value);
+                if (!test_match)
                     return false;
             }
             else {
-                let regex = new RegExp(rule.test);
-                let test_match = regex.test(item.value);
+                let test_match = (rule.value === item.value);
                 if(!test_match)
                     return false;
             }
+        }
+
+        if(rule.test) {
+            let valid = jsonPredicate.validatePredicate(rule.test);
+            if(!valid)
+                throw new Error("Invalid JSON Predicate");
+                
+            //if this is an array, it's a json predicate set
+            let test_match = test(item, rule.test);
+            if(!test_match)
+                return false;
         }
 
         return true;
@@ -82,4 +110,4 @@ class JSONPatchRules {
 
 }
 
-export default JSONPatchRules;
+module.exports = JSONPatchRules;
