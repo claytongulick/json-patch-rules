@@ -36,7 +36,7 @@ On the client side, it is frequently necessary or desirable to perform some logi
 This repository proposes a specification and some tools for addressing the server side of the PATCH process.
 
 ## The Problem
-In real world PATCH scenarios, it is rare, if ever, that the server can completely trust a PATCH document sent by a client. Image we have a user object that looks something like:
+In real world PATCH scenarios, it is rare, if ever, that the server can completely trust a PATCH document sent by a client. Imagine we have a user object that looks something like:
 
 ```javascript
 {
@@ -59,7 +59,7 @@ It is pretty unlikely that we'd want a user to be able to submit a PATCH that lo
 [{"op":"replace", "path": "/role", "value":"god-mode"}] //now I own everything!
 ```
 
-This situation leaves it up to each server implementation to explicitly check patch paths and verify rules, which can be tedius. This project provies a propsed spec and a simple utility to declaratively define PATCH rules.
+This situation leaves it up to each server implementation to explicitly check patch paths and verify rules, which can be tedius. This project provides a propsed spec and a simple utility to declaratively define PATCH rules.
 
 ## The Spec
 A rule set is simply a JSON array of rule objects. A rule object is designed to be similar in structure to a JSON Patch operation object, and in its simplest form looks like:
