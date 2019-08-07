@@ -59,7 +59,7 @@ It is pretty unlikely that we'd want a user to be able to submit a PATCH that lo
 [{"op":"replace", "path": "/role", "value":"god-mode"}] //now I own everything!
 ```
 
-This situation leaves it up to each server implementation to explicitly check patch paths and verify rules, which can be tedius. This project provides a propsed spec and a simple utility to declaratively define PATCH rules.
+This situation leaves it up to each server implementation to explicitly check patch paths and verify rules, which can be tedius. This project provides a proposed spec and a simple utility to declaratively define PATCH rules.
 
 ## The Spec
 A rule set is simply a JSON array of rule objects. A rule object is designed to be similar in structure to a JSON Patch operation object, and in its simplest form looks like:
